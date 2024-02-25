@@ -30,7 +30,6 @@
 # GÖREV 1: Veriyi Hazırlama
 #########################
 
-# Adım 1: armut_data.csv dosyasınız okutunuz.
 import pandas as pd
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 500)
@@ -47,7 +46,7 @@ df.info()
 df["Hizmet"] = df['ServiceId'].astype(str) +"_"+ df["CategoryId"].astype(str)
 
 # Adım 3: Veri seti hizmetlerin alındığı tarih ve saatten oluşmaktadır, herhangi bir sepet tanımı (fatura vb. ) bulunmamaktadır.
-# Association Rule Learning uygulayabilmek için bir sepet (fatura vb.) tanımı oluşturulması gerekmektedir.
+# Association Rule Learning uygulayabilmek için bir sepet tanımı oluşturulması gerekmektedir.
 # Burada sepet tanımı her bir müşterinin aylık aldığı hizmetlerdir. Örneğin; 7256 id'li müşteri 2017'in 8.ayında aldığı 9_4, 46_4 hizmetleri bir sepeti;
 # 2017’in 10.ayında aldığı  9_4, 38_4  hizmetleri başka bir sepeti ifade etmektedir. Sepetleri unique bir ID ile tanımlanması gerekmektedir.
 # Bunun için öncelikle sadece yıl ve ay içeren yeni bir date değişkeni oluşturunuz. UserID ve yeni oluşturduğunuz date değişkenini "_"
@@ -84,7 +83,7 @@ frequent_itemsets = apriori(df_new,
 
 frequent_itemsets.sort_values("support", ascending=False)
 
-#kuralları elde ettik
+
 rules_df = association_rules(frequent_itemsets,
                           metric="support",
                           min_threshold=0.01)

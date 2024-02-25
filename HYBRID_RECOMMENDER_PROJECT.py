@@ -12,24 +12,18 @@
 
 
 # Adım 1: Movie ve Rating veri setlerini okutunuz.
-# movieId, film adı ve filmin tür bilgilerini içeren veri seti
-# UserID, film adı, filme verilen oy ve zaman bilgisini içeren veri seti
 import pandas as pd
 pd.set_option('display.max_columns', 500)
 movie = pd.read_csv('recommendation_systems/recommender_systems/datasets/movie_lens_dataset/movie.csv')
 rating = pd.read_csv('recommendation_systems/recommender_systems/datasets/movie_lens_dataset/rating.csv')
 
 # Adım 2: Rating veri setine filmlerin isimlerini ve türünü movie film setini kullanrak ekleyiniz.
-# Ratingdeki kullanıcıların oy kullandıkları filmlerin sadece id'si var.
-# Idlere ait film isimlerini ve türünü movie veri setinden ekliyoruz.
 
 df = movie.merge(rating, how="left", on="movieId")
 df.head()
 
 # Adım 3: Herbir film için toplam kaç kişinin oy kullandığını hesaplayınız.Toplam oy kullanılma sayısı 1000'un altında olan filmleri veri setinden çıkarınız.
-# Herbir film için toplam kaç kişinin oy kullanıldığını hesaplıyoruz.
-# Toplam oy kullanılma sayısı 1000'in altında olan filmlerin isimlerini rare_movies de tutuyoruz.
-# Ve veri setinden çıkartıyoruz
+
 comment_counts = pd.DataFrame(df["title"].value_counts())
 rare_movies = comment_counts[comment_counts["count"] <= 1000].index
 common_movies = df[~df["title"].isin(rare_movies)]
